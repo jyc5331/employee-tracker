@@ -17,6 +17,27 @@ const getAllRoles = () => {
   return connection.promise().query("SELECT * FROM role");
 };
 
+const getAllEmployees = () => {
+  return connection.promise().query("SELECT * FROM employee");
+};
+
+const addDepartment = () => {
+  // return connection.promise().query("") have this select dept then add to it
+  //
+};
+
+const addRole = () => {
+  // return connection.promise().query("") have this select dept then add to it
+  //
+};
+
+const addEmployee = () => {
+  // return connection.promise().query("") have this select dept then add to it
+  //
+};
+
+const updateEmployee = () => {};
+
 // // simple query
 // connection.query(
 //   'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
@@ -35,4 +56,12 @@ const getAllRoles = () => {
 //   }
 // );
 
-module.exports = { getAllDepartments, getAllRoles };
+module.exports = {
+  getAllDepartments,
+  getAllRoles,
+  getAllEmployees,
+  addDepartment,
+  addRole,
+  addEmployee,
+  updateEmployee,
+};

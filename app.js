@@ -1,6 +1,10 @@
 const cTable = require("console.table");
 const inquirer = require("inquirer");
-const { getAllDepartments, getAllRoles } = require("./db/database");
+const {
+  getAllDepartments,
+  getAllRoles,
+  getAllEmployees,
+} = require("./db/database");
 
 const openingFunction = () => {
   inquirer
@@ -30,19 +34,19 @@ const openingFunction = () => {
         return viewAllRoles();
       }
       if (data.choice === "View all employees") {
-        return promptUserIntern();
+        return viewAllEmployees();
       }
       if (data.choice === "Add a department") {
-        generateHTML(employees);
+        addToDepartment(employees);
       }
       if (data.choice === "Add a role") {
-        generateHTML(employees);
+        addToRole(employees);
       }
       if (data.choice === "Add an employee") {
-        generateHTML(employees);
+        addToEmployee(employees);
       }
       if (data.choice === "Update an employee role") {
-        generateHTML(employees);
+        updateEmployeeRole(employees);
       }
     });
 };
@@ -61,6 +65,36 @@ const viewAllRoles = () => {
   getAllRoles().then(function (results) {
     console.log(results);
   });
+};
+
+const viewAllEmployees = () => {
+  getAllEmployees().then(function (results) {
+    console.log(results);
+  });
+};
+
+const addToDepartment = () => {
+  //run inquire prompt for necessary info (name)
+  //add that to the DB by passing inquirer responses like so into "addDepartment(responses go here)"
+  //console.log a success message
+};
+
+const addToRole = () => {
+  //run inquire prompt for necessary info (title, salary, dept_id)
+  //add that to the DB by passing inquirer responses like so into "addRole(responses go here)"
+  //console.log a success message
+};
+
+const addToEmployee = () => {
+  //run inquire prompt for necessary info (first, last, role_id, manager_id)
+  //add that to the DB with addEmployee()
+  //console.log a success message
+};
+
+const updateEmployeeRole = () => {
+  //run inquire prompt for necessary info
+  //change DB with updateEmployee()
+  //console.log a success message
 };
 
 openingFunction();
