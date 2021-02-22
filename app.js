@@ -37,16 +37,16 @@ const openingFunction = () => {
         return viewAllEmployees();
       }
       if (data.choice === "Add a department") {
-        addToDepartment(employees);
+        addToDepartment();
       }
       if (data.choice === "Add a role") {
-        addToRole(employees);
+        addToRole();
       }
       if (data.choice === "Add an employee") {
-        addToEmployee(employees);
+        addToEmployee();
       }
       if (data.choice === "Update an employee role") {
-        updateEmployeeRole(employees);
+        updateEmployeeRole();
       }
     });
 };
@@ -74,19 +74,129 @@ const viewAllEmployees = () => {
 };
 
 const addToDepartment = () => {
-  //run inquire prompt for necessary info (name)
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is the department's name? (Required)",
+      validate: (departmentInput) => {
+        if (departmentInput) {
+          return true;
+        } else {
+          console.log("Please enter the employee's name");
+          return false;
+        }
+      },
+    },
+  ]);
+  //.then would go here, but getting syntax error
   //add that to the DB by passing inquirer responses like so into "addDepartment(responses go here)"
   //console.log a success message
 };
 
 const addToRole = () => {
-  //run inquire prompt for necessary info (title, salary, dept_id)
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "title",
+      message: "What is the role's title? (Required)",
+      validate: (titleInput) => {
+        if (titleInput) {
+          return true;
+        } else {
+          console.log("Please enter the title of the role");
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "salary",
+      message: "What is the salary of the role? (Required)",
+      validate: (salaryInput) => {
+        if (isNaN(salaryInput)) {
+          console.log(
+            "Please enter the salary of the role. Do not use commas or decimals"
+          );
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "name",
+      message: "What is the ID of the role's department? (Required)",
+      validate: (departmentInput) => {
+        if (isNaN(departmentInput)) {
+          console.log("Please enter the ID of the role's department");
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+  ]);
   //add that to the DB by passing inquirer responses like so into "addRole(responses go here)"
   //console.log a success message
 };
 
 const addToEmployee = () => {
-  //run inquire prompt for necessary info (first, last, role_id, manager_id)
+  return inquirer.prompt([
+    {
+      type: "input",
+      name: "first",
+      message: "What is the employee's first name? (Required)",
+      validate: (firstInput) => {
+        if (firstInput) {
+          return true;
+        } else {
+          console.log("Please enter the employee's first name");
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "last",
+      message: "What is the employee's last name? (Required)",
+      validate: (lastInput) => {
+        if (lastInput) {
+          return true;
+        } else {
+          console.log("Please enter the employee's last name");
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "roleid",
+      message: "What is the ID of the employee's role? (Required)",
+      validate: (employeeRoleInput) => {
+        if (isNaN(employeeRoleInput)) {
+          console.log("Please enter the ID of the employee's role");
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "managerid",
+      message: "What is the ID of the employee's manager? (Required)",
+      validate: (managerIdInput) => {
+        if (isNaN(managerIdInput)) {
+          console.log("Please enter the ID employee's manager");
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+  ]);
   //add that to the DB with addEmployee()
   //console.log a success message
 };
