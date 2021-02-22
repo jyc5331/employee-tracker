@@ -54,7 +54,8 @@ const openingFunction = () => {
 // view all departments
 const viewAllDepartments = () => {
   getAllDepartments().then(function (results) {
-    console.log(results);
+    //table looks like it needs to either get the table or have it defined elsewhere
+    console.table(results);
     //look into mapping so you can clean up results and put them into a new object
     // let departments = new Map()
     // departments.set(results {id, name})
@@ -90,8 +91,9 @@ const addToDepartment = () => {
     },
   ]);
   //.then would go here, but getting syntax error
-  //add that to the DB by passing inquirer responses like so into "addDepartment(responses go here)"
+  //call addDepartment(departmentInput)
   //console.log a success message
+  return openingFunction();
 };
 
 const addToRole = () => {

@@ -14,15 +14,24 @@ const getAllDepartments = () => {
 };
 
 const getAllRoles = () => {
-  return connection.promise().query("SELECT * FROM role");
+  return connection.promise().query(
+    `SELECT  role.title, role.id AS role_id, department.name AS department, role.salary 
+      FROM role 
+      LEFT JOIN department ON department.id = role.department_id`
+  );
 };
 
 const getAllEmployees = () => {
-  return connection.promise().query("SELECT * FROM employee");
+  return connection.promise()
+    .query(`SELECT employee.first_name, employee.last_name, role_id, manager_id AS manager, role.title, role.salary, department.name AS department FROM employee
+  LEFT JOIN role ON role.id = employee.role_id
+  LEFT JOIN department ON department.id = role.department_id;`);
 };
 
 const addDepartment = () => {
-  // return connection.promise().query("") have this select dept then add to it
+  return connection
+    .promise()
+    .query("INSERT INTO department (name) VALUES(`${departmentInput.name}`)");
   //
 };
 
