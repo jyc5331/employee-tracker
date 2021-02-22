@@ -1,9 +1,7 @@
 const cTable = require("console.table");
 const inquirer = require("inquirer");
-const { getAllDepartments } = require("./db/database");
+const { getAllDepartments, getAllRoles } = require("./db/database");
 
-// run inquirer prompt LIST for view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-// same concept as index.js from team-profile-generator
 const openingFunction = () => {
   inquirer
     .prompt([
@@ -29,7 +27,7 @@ const openingFunction = () => {
         return viewAllDepartments();
       }
       if (data.choice === "View all roles") {
-        return promptUserEngineer();
+        return viewAllRoles();
       }
       if (data.choice === "View all employees") {
         return promptUserIntern();
@@ -54,6 +52,14 @@ const viewAllDepartments = () => {
   getAllDepartments().then(function (results) {
     console.log(results);
     //look into mapping so you can clean up results and put them into a new object
+    // let departments = new Map()
+    // departments.set(results {id, name})
+  });
+};
+
+const viewAllRoles = () => {
+  getAllRoles().then(function (results) {
+    console.log(results);
   });
 };
 

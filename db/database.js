@@ -13,6 +13,10 @@ const getAllDepartments = () => {
   return connection.promise().query("SELECT * FROM department");
 };
 
+const getAllRoles = () => {
+  return connection.promise().query("SELECT * FROM role");
+};
+
 // // simple query
 // connection.query(
 //   'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
@@ -31,4 +35,4 @@ const getAllDepartments = () => {
 //   }
 // );
 
-module.exports = { getAllDepartments };
+module.exports = { getAllDepartments, getAllRoles };
