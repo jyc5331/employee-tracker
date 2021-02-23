@@ -183,62 +183,76 @@ const addToRole = () => {
 };
 
 const addToEmployee = () => {
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "first",
-      message: "What is the employee's first name? (Required)",
-      validate: (firstInput) => {
-        if (firstInput) {
-          return true;
-        } else {
-          console.log("Please enter the employee's first name");
-          return false;
-        }
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "first",
+        message: "What is the employee's first name? (Required)",
+        validate: (firstInput) => {
+          if (firstInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's first name");
+            return false;
+          }
+        },
       },
-    },
-    {
-      type: "input",
-      name: "last",
-      message: "What is the employee's last name? (Required)",
-      validate: (lastInput) => {
-        if (lastInput) {
-          return true;
-        } else {
-          console.log("Please enter the employee's last name");
-          return false;
-        }
+      {
+        type: "input",
+        name: "last",
+        message: "What is the employee's last name? (Required)",
+        validate: (lastInput) => {
+          if (lastInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's last name");
+            return false;
+          }
+        },
       },
-    },
-    {
-      type: "input",
-      name: "roleid",
-      message: "What is the ID of the employee's role? (Required)",
-      validate: (employeeRoleInput) => {
-        if (isNaN(employeeRoleInput)) {
-          console.log("Please enter the ID of the employee's role");
-          return false;
-        } else {
-          return true;
-        }
+      {
+        type: "input",
+        name: "roleId",
+        message: "What is the ID of the employee's role? (Required)",
+        validate: (employeeRoleInput) => {
+          if (isNaN(employeeRoleInput)) {
+            console.log("Please enter the ID of the employee's role");
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
-    },
-    {
-      type: "input",
-      name: "managerid",
-      message: "What is the ID of the employee's manager? (Required)",
-      validate: (managerIdInput) => {
-        if (isNaN(managerIdInput)) {
-          console.log("Please enter the ID employee's manager");
-          return false;
-        } else {
-          return true;
-        }
+      {
+        type: "input",
+        name: "managerId",
+        message: "What is the ID of the employee's manager? (Required)",
+        validate: (managerIdInput) => {
+          if (isNaN(managerIdInput)) {
+            console.log("Please enter the ID employee's manager");
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
-    },
-  ]);
-  //add that to the DB with addEmployee()
-  //console.log a success message
+    ])
+    .then(function (employeeInput) {
+      console.log(employeeInput);
+      addEmployee(
+        employeeInput.first,
+        employeeInput.last,
+        employeeInput.roleId,
+        employeeInput.managerId
+      );
+      console.log(
+        employeeInput.title + " was successfully added to your database"
+      );
+    })
+    .then(function () {
+      cycleAgain();
+    });
 };
 
 const updateEmployeeRole = () => {

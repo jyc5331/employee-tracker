@@ -45,9 +45,12 @@ const addRole = (title, salary, department) => {
     );
 };
 
-const addEmployee = () => {
-  // return connection.promise().query("") have this select dept then add to it
-  //
+const addEmployee = (first, last, role, manager) => {
+  return connection
+    .promise()
+    .query(
+      `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES('${first}', '${last}', '${role}', '${manager}')`
+    );
 };
 
 const updateEmployee = () => {};
