@@ -10,7 +10,9 @@ const connection = mysql.createConnection({
 });
 
 const getAllDepartments = () => {
-  return connection.promise().query("SELECT * FROM department");
+  return connection
+    .promise()
+    .query("SELECT department.id, department.name FROM department");
 };
 
 const getAllRoles = () => {
@@ -26,13 +28,13 @@ const getAllEmployees = () => {
     .query(`SELECT employee.first_name, employee.last_name, role_id, manager_id AS manager, role.title, role.salary, department.name AS department FROM employee
   LEFT JOIN role ON role.id = employee.role_id
   LEFT JOIN department ON department.id = role.department_id;`);
-  //how to join manager onto manager ID?
+  //HELP how to join manager onto manager ID?
 };
 
-const addDepartment = () => {
+const addDepartment = (name) => {
   return connection
     .promise()
-    .query("INSERT INTO department (name) VALUES(`${departmentInput.name}`)");
+    .query(`INSERT INTO department (name) VALUES('${name}')`);
 };
 
 const addRole = () => {

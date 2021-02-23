@@ -4,6 +4,10 @@ const {
   getAllDepartments,
   getAllRoles,
   getAllEmployees,
+  addDepartment,
+  addRole,
+  addEmployee,
+  updateEmployee,
 } = require("./db/database");
 
 const openingFunction = () => {
@@ -51,6 +55,7 @@ const openingFunction = () => {
     });
 };
 
+//ADD THIS TO EVERYTHING
 const cycleAgain = () => {
   inquirer
     .prompt([
@@ -77,10 +82,11 @@ const cycleAgain = () => {
 const viewAllDepartments = () => {
   getAllDepartments().then(function (results) {
     //table looks like it needs to either get the table or have it defined elsewhere
-    console.table(results);
-    //look into mapping so you can clean up results and put them into a new object
-    // let departments = new Map()
-    // departments.set(results {id, name})
+    console.log(results[0]);
+    console.table(results[0]);
+    const departmentMap = results[0].map((x) => {
+      console.log(x);
+    });
     //add an inquirer that allows the user to loop through again to everything
   });
 };
@@ -115,10 +121,10 @@ const addToDepartment = () => {
       },
     ])
     .then(function (departmentInput) {
+      addDepartment(departmentInput.name);
       console.log(
         departmentInput.name + "was successfully added to your database"
       );
-      //addDepartment(departmentInput)
     })
     .then(function () {
       cycleAgain();
