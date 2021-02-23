@@ -51,6 +51,28 @@ const openingFunction = () => {
     });
 };
 
+const cycleAgain = () => {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "choice",
+        message: "Would you like to start from the beginning?(Required)",
+        choices: ["Yes", "No"],
+      },
+    ])
+    .then(function (cycleInput) {
+      console.log(cycleInput);
+      if (cycleInput.choice === "Yes") {
+        openingFunction();
+        return true;
+      } else {
+        console.log("Thank you for using this application");
+        return false;
+      }
+    });
+};
+
 // view all departments
 const viewAllDepartments = () => {
   getAllDepartments().then(function (results) {
@@ -59,6 +81,7 @@ const viewAllDepartments = () => {
     //look into mapping so you can clean up results and put them into a new object
     // let departments = new Map()
     // departments.set(results {id, name})
+    //add an inquirer that allows the user to loop through again to everything
   });
 };
 
@@ -75,25 +98,31 @@ const viewAllEmployees = () => {
 };
 
 const addToDepartment = () => {
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is the department's name? (Required)",
-      validate: (departmentInput) => {
-        if (departmentInput) {
-          return true;
-        } else {
-          console.log("Please enter the employee's name");
-          return false;
-        }
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the department's name? (Required)",
+        validate: (departmentInput) => {
+          if (departmentInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's name");
+            return false;
+          }
+        },
       },
-    },
-  ]);
-  //.then would go here, but getting syntax error
-  //call addDepartment(departmentInput)
-  //console.log a success message
-  return openingFunction();
+    ])
+    .then(function (departmentInput) {
+      console.log(
+        departmentInput.name + "was successfully added to your database"
+      );
+      //addDepartment(departmentInput)
+    })
+    .then(function () {
+      cycleAgain();
+    });
 };
 
 const addToRole = () => {

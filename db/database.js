@@ -26,13 +26,13 @@ const getAllEmployees = () => {
     .query(`SELECT employee.first_name, employee.last_name, role_id, manager_id AS manager, role.title, role.salary, department.name AS department FROM employee
   LEFT JOIN role ON role.id = employee.role_id
   LEFT JOIN department ON department.id = role.department_id;`);
+  //how to join manager onto manager ID?
 };
 
 const addDepartment = () => {
   return connection
     .promise()
     .query("INSERT INTO department (name) VALUES(`${departmentInput.name}`)");
-  //
 };
 
 const addRole = () => {
@@ -46,24 +46,6 @@ const addEmployee = () => {
 };
 
 const updateEmployee = () => {};
-
-// // simple query
-// connection.query(
-//   'SELECT * FROM `table` WHERE `name` = "Page" AND `age` > 45',
-//   function (err, results, fields) {
-//     console.log(results); // results contains rows returned by server
-//     console.log(fields); // fields contains extra meta data about results, if available
-//   }
-// );
-
-// // with placeholder
-// connection.query(
-//   "SELECT * FROM `table` WHERE `name` = ? AND `age` > ?",
-//   ["Page", 45],
-//   function (err, results) {
-//     console.log(results);
-//   }
-// );
 
 module.exports = {
   getAllDepartments,
