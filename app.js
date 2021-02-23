@@ -120,7 +120,7 @@ const addToDepartment = () => {
     .then(function (departmentInput) {
       addDepartment(departmentInput.name);
       console.log(
-        departmentInput.name + "was successfully added to your database"
+        departmentInput.name + " was successfully added to your database"
       );
     })
     .then(function () {
@@ -129,51 +129,57 @@ const addToDepartment = () => {
 };
 
 const addToRole = () => {
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "title",
-      message: "What is the role's title? (Required)",
-      validate: (titleInput) => {
-        if (titleInput) {
-          return true;
-        } else {
-          console.log("Please enter the title of the role");
-          return false;
-        }
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "title",
+        message: "What is the role's title? (Required)",
+        validate: (titleInput) => {
+          if (titleInput) {
+            return true;
+          } else {
+            console.log("Please enter the title of the role");
+            return false;
+          }
+        },
       },
-    },
-    {
-      type: "input",
-      name: "salary",
-      message: "What is the salary of the role? (Required)",
-      validate: (salaryInput) => {
-        if (isNaN(salaryInput)) {
-          console.log(
-            "Please enter the salary of the role. Do not use commas or decimals"
-          );
-          return false;
-        } else {
-          return true;
-        }
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary of the role? (Required)",
+        validate: (salaryInput) => {
+          if (isNaN(salaryInput)) {
+            console.log(
+              "Please enter the salary of the role. Do not use commas or decimals"
+            );
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
-    },
-    {
-      type: "input",
-      name: "name",
-      message: "What is the ID of the role's department? (Required)",
-      validate: (departmentInput) => {
-        if (isNaN(departmentInput)) {
-          console.log("Please enter the ID of the role's department");
-          return false;
-        } else {
-          return true;
-        }
+      {
+        type: "input",
+        name: "department",
+        message: "What is the ID of the role's department? (Required)",
+        validate: (departmentInput) => {
+          if (isNaN(departmentInput)) {
+            console.log("Please enter the ID of the role's department");
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
-    },
-  ]);
-  //add that to the DB by passing inquirer responses like so into "addRole(responses go here)"
-  //console.log a success message
+    ])
+    .then(function (roleInput) {
+      addRole(roleInput.title, roleInput.salary, roleInput.department);
+      console.log(roleInput.title + " was successfully added to your database");
+    })
+    .then(function () {
+      cycleAgain();
+    });
 };
 
 const addToEmployee = () => {
