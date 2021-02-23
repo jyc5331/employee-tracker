@@ -80,13 +80,9 @@ const cycleAgain = () => {
 
 // view all departments
 const viewAllDepartments = () => {
-  getAllDepartments().then(function (results) {
-    //table looks like it needs to either get the table or have it defined elsewhere
-    console.log(results[0]);
-    console.table(results[0]);
-    const departmentMap = results[0].map((x) => {
-      console.log(x);
-    });
+  getAllDepartments().then(function ([results]) {
+    console.table(results);
+    cycleAgain();
     //add an inquirer that allows the user to loop through again to everything
   });
 };
