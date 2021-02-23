@@ -88,14 +88,15 @@ const viewAllDepartments = () => {
 };
 
 const viewAllRoles = () => {
-  getAllRoles().then(function (results) {
-    console.log(results);
+  getAllRoles().then(function ([results]) {
+    console.table(results);
+    cycleAgain();
   });
 };
 
 const viewAllEmployees = () => {
-  getAllEmployees().then(function (results) {
-    console.log(results);
+  getAllEmployees().then(function ([results]) {
+    console.table(results);
   });
 };
 
@@ -236,6 +237,9 @@ const addToEmployee = () => {
 
 const updateEmployeeRole = () => {
   return inquirer.prompt([
+    //let employees = getAllEmployees ... this might need to be mapped into a list of strings (names)
+    //let choices = employees.map(x => {return first and last names as a string})
+    //inside of inquirer prompt choices:employees (this will work if you have a list of strings)
     //make the first thing a drop down list of current results
     {
       type: "input",
