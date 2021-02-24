@@ -55,7 +55,6 @@ const openingFunction = () => {
     });
 };
 
-//ADD THIS TO EVERYTHING
 const cycleAgain = () => {
   inquirer
     .prompt([
@@ -78,12 +77,10 @@ const cycleAgain = () => {
     });
 };
 
-// view all departments
 const viewAllDepartments = () => {
   getAllDepartments().then(function ([results]) {
     console.table(results);
     cycleAgain();
-    //add an inquirer that allows the user to loop through again to everything
   });
 };
 
@@ -97,6 +94,7 @@ const viewAllRoles = () => {
 const viewAllEmployees = () => {
   getAllEmployees().then(function ([results]) {
     console.table(results);
+    cycleAgain();
   });
 };
 
@@ -256,64 +254,84 @@ const addToEmployee = () => {
 };
 
 const updateEmployeeRole = () => {
-  return inquirer.prompt([
-    //let employees = getAllEmployees ... this might need to be mapped into a list of strings (names)
-    //let choices = employees.map(x => {return first and last names as a string})
-    //inside of inquirer prompt choices:employees (this will work if you have a list of strings)
-    //make the first thing a drop down list of current results
+  let employees = [];
+  getAllEmployees().then(function ([results]) {
+    employees = results;
+    // console.log(employees);
+  });
+  let employeeChoices = employees.map((x) => {
+    return `${x.first_name} ${x.last_name}`;
+  });
+  console.log(employeeChoices);
+  inquirer.prompt([
     {
-      type: "input",
-      name: "first",
-      message: "What is the employee's first name? (Required)",
-      validate: (firstInput) => {
-        if (firstInput) {
-          return true;
-        } else {
-          console.log("Please enter the employee's first name");
-          return false;
-        }
-      },
-    },
-    {
-      type: "input",
-      name: "last",
-      message: "What is the employee's last name? (Required)",
-      validate: (lastInput) => {
-        if (lastInput) {
-          return true;
-        } else {
-          console.log("Please enter the employee's last name");
-          return false;
-        }
-      },
-    },
-    {
-      type: "input",
-      name: "roleid",
-      message: "What is the ID of the employee's role? (Required)",
-      validate: (employeeRoleInput) => {
-        if (isNaN(employeeRoleInput)) {
-          console.log("Please enter the ID of the employee's role");
-          return false;
-        } else {
-          return true;
-        }
-      },
-    },
-    {
-      type: "input",
-      name: "managerid",
-      message: "What is the ID of the employee's manager? (Required)",
-      validate: (managerIdInput) => {
-        if (isNaN(managerIdInput)) {
-          console.log("Please enter the ID employee's manager");
-          return false;
-        } else {
-          return true;
-        }
-      },
+      type: "list",
+      name: "choice",
+      message:
+        "Which employee's information would you like to update? Please select one of the following: (Required)",
+      choices: ["View all departments", "View all roles"],
     },
   ]);
+  return inquirer
+    .prompt([
+      //inside of inquirer prompt choices:employees (this will work if you have a list of strings)
+      //make the first thing a drop down list of current results
+      {
+        type: "input",
+        name: "first",
+        message: "What is the employee's first name? (Required)",
+        validate: (firstInput) => {
+          if (firstInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's first name");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "last",
+        message: "What is the employee's last name? (Required)",
+        validate: (lastInput) => {
+          if (lastInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's last name");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "roleid",
+        message: "What is the ID of the employee's role? (Required)",
+        validate: (employeeRoleInput) => {
+          if (isNaN(employeeRoleInput)) {
+            console.log("Please enter the ID of the employee's role");
+            return false;
+          } else {
+            return true;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "managerid",
+        message: "What is the ID of the employee's manager? (Required)",
+        validate: (managerIdInput) => {
+          if (isNaN(managerIdInput)) {
+            console.log("Please enter the ID employee's manager");
+            return false;
+          } else {
+            return true;
+          }
+        },
+      },
+    ])
+    .then(function () {
+      cycleAgain();
+    });
   //change DB with updateEmployee()
   //console.log a success message
 };
