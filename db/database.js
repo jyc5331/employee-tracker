@@ -53,7 +53,13 @@ const addEmployee = (first, last, role, manager) => {
     );
 };
 
-const updateEmployee = () => {};
+const updateEmployee = (employeeID, roleID) => {
+  return connection.promise().query(
+    `UPDATE employee 
+    SET role_id = ${roleID}
+    WHERE id = ${employeeID}`
+  );
+};
 
 module.exports = {
   getAllDepartments,
