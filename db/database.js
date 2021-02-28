@@ -25,7 +25,7 @@ const getAllRoles = () => {
 
 const getAllEmployees = () => {
   return connection.promise()
-    .query(`SELECT employee.first_name, employee.last_name, role_id, manager_id AS manager, role.title, role.salary, department.name AS department FROM employee
+    .query(`SELECT employee.id, employee.first_name, employee.last_name, role_id, manager_id AS manager, role.title, role.salary, department.name AS department FROM employee
   LEFT JOIN role ON role.id = employee.role_id
   LEFT JOIN department ON department.id = role.department_id;`);
   //HELP how to join manager onto manager ID?
